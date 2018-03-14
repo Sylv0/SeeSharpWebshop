@@ -1,0 +1,18 @@
+﻿@using SeeSharpWebshop.Controllers
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Cart</h2>
+
+@foreach (KeyValuePair<ProductViewModel, int> item in HomeController.cart)
+{
+    <input type="text" disabled value="@item.Key.name" />
+    <span> x </span>
+    <input type="number" value="@item.Value" />
+    <br />
+}
+<br />
+<a asp-controller="Home" asp-action="ClearCart" class="text-danger">Clear cart <span class="glyphicon glyphicon-trash"></span></a>
+
+<a asp-controller="Home" asp-action="CompletePurchase" class="btn btn-info">Complete <span class="glyphicon glyphicon-check"></span></a>

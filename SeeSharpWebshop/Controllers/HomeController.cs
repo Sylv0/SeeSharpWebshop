@@ -13,6 +13,7 @@ namespace SeeSharpWebshop.Controllers
 {
     public class HomeController : Controller
     {
+        public static Dictionary<ProductViewModel, int> cart = new Dictionary<ProductViewModel, int>();
 
         private readonly string connectionString;
 
@@ -31,6 +32,38 @@ namespace SeeSharpWebshop.Controllers
         {
 
             return View(products);
+        }
+
+        public IActionResult Cart()
+        {
+            return View(cart);
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddItemToCart(int id)
+        {
+            if(Request.Cookies["guid"] == null)
+            {
+                Response.Cookies.Append("guid", Guid.NewGuid().ToString());
+            }
+            List<ProductViewModel> product = products.Where(i => i.id == id).ToList();
+            if (product.Any())
+            {
+                cart.Add(product[0], 1);
+            }
+            return RedirectToAction("Index");
+            //return View(id);
+        }
+
+        public IActionResult ClearCart()
+        {
+            cart = new Dictionary<ProductViewModel, int>();
+            return RedirectToAction("Cart");
         }
 
         public IActionResult Error()

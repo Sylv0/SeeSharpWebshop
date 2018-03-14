@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SeeSharpWebshop.Controllers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,6 +32,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Cart"><span class="glyphicon glyphicon-shopping-cart"></span><span class="badge">@HomeController.cart.Count</span></a></li>
                 </ul>
             </div>
         </div>
