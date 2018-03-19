@@ -8,35 +8,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using SeeSharpWebshop.Models;
+using SeeSharpWebshop.Project.Core.Models;
+using SeeSharpWebshop.Project.Core.Repositories.Implementations;
+using SeeSharpWebshop.Project.Core.Services.Implementations;
 
 namespace SeeSharpWebshop.Controllers
 {
     public class HomeController : Controller
     {
-        public static Dictionary<ProductViewModel, int> cart = new Dictionary<ProductViewModel, int>();
+        public static Dictionary<ProductModel, int> cart = new Dictionary<ProductModel, int>();
 
-        private readonly string connectionString;
+        public readonly string connectionString;
 
-        List<ProductViewModel> products = new List<ProductViewModel>();
+        List<ProductModel> products = new List<ProductModel>();
+
+        private ProductService productService;
+        private CartService cartService;
 
         public HomeController(IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("ConnectionString");
-            using (var connection = new SqliteConnection(this.connectionString))
-            {
-                this.products = connection.Query<ProductViewModel>("SELECT * FROM products").ToList();
-            }
+
+            productService = new ProductService(new ProductRepository(this.connectionString));
+            cartService = new CartService(new CartRepository(this.connectionString));
+
+            this.products = productService.GetAll();
         }
 
         public IActionResult Index()
         {
-
+            if (Request.Cookies["guid"] == null)
+            {
+                Response.Cookies.Append("guid", Guid.NewGuid().ToString());
+            }
             return View(products);
         }
 
         public IActionResult Cart()
         {
-            return View(cart);
+            return View(cartService.Get(Request.Cookies["guid"]));
         }
 
         public IActionResult About()
@@ -47,11 +57,21 @@ namespace SeeSharpWebshop.Controllers
         [HttpGet]
         public IActionResult AddItemToCart(int id)
         {
-            if(Request.Cookies["guid"] == null)
+            using (var connection = new SqliteConnection(this.connectionString))
             {
-                Response.Cookies.Append("guid", Guid.NewGuid().ToString());
+                var testResult = connection.QuerySingleOrDefault("SELECT Amount FROM carts WHERE guid=@guid AND ProductID=@prodid",
+                    new { guid = Request.Cookies["guid"], prodid = id });
+                if (testResult != null)
+                {
+                    connection.Execute("UPDATE carts SET Amount=Amount+1 WHERE guid=@guid AND ProductID=@prodid", new { guid = Request.Cookies["guid"], prodid = id });
+                }
+                else
+                {
+                    connection.Execute("INSERT INTO carts(guid, ProductID, Amount) VALUES(@guid, @prodid, @amount)",
+                            new { guid = Request.Cookies["guid"], prodid = id, amount = 1 });
+                }
             }
-            List<ProductViewModel> product = products.Where(i => i.id == id).ToList();
+            List<ProductModel> product = products.Where(i => i.Id == id).ToList();
             if (product.Any())
             {
                 cart.Add(product[0], 1);
@@ -62,7 +82,8 @@ namespace SeeSharpWebshop.Controllers
 
         public IActionResult ClearCart()
         {
-            cart = new Dictionary<ProductViewModel, int>();
+            cart = new Dictionary<ProductModel, int>();
+            cartService.Clear(Request.Cookies["guid"]);
             return RedirectToAction("Cart");
         }
 
