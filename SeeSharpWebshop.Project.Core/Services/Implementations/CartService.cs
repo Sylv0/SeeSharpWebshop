@@ -19,5 +19,10 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
         {
             return cartRepository.Get(guid);
         }
+
+        public void Clear(string guid)
+        {
+            cartRepository.Clear(guid);
+        }
     }
 }
