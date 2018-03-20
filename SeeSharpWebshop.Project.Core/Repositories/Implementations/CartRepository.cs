@@ -21,7 +21,7 @@ namespace SeeSharpWebshop.Project.Core.Repositories.Implementations
         {
             using (var connection = new SqliteConnection(this.connectionString))
             {
-                var query = "select products.id as ProductID, carts.Amount FROM products, carts WHERE carts.guid=@guid AND carts.ProductID=products.id";
+                var query = "select products.id as ProductID, products.name as Name, products.price as Price, carts.Amount FROM products, carts WHERE carts.guid=@guid AND carts.ProductID=products.id";
                 return connection.Query<CartModel>(query, new { guid }).ToList();
             }
         }
