@@ -8,16 +8,21 @@
 
 @foreach (SeeSharpWebshop.Project.Core.Models.CartModel item in Model)
 {
-    <div class="form-group input-group">
-        <span class="input-group-addon">@item.Name</span>
-        <input data-product="@item.ProductID" type="number" value="@item.Amount" min="0" class="form-control" />
-        <span class="input-group-addon">@(item.Price * item.Amount) kr</span>
-        <br />
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">@item.Name</div>
+            <input data-product="@item.ProductID" type="number" value="@item.Amount" min="0" class="form-control" />
+            <div class="input-group-addon">@(item.Price * item.Amount) kr</div>
+            <br />
+        </div>
+
     </div>
 }
 
-<div class="panel panel-default pull-right"><div class="panel-body">total</div></div>
-
+@if (Model.Select(item => item.Price * item.Amount).Sum() > 0)
+{
+    <div class="panel panel-default pull-right"><div class="panel-body">@Model.Select(item => item.Price * item.Amount).Sum() kr</div></div>
+}
 <script>
     document.querySelectorAll(".amount").forEach(e => {
         e.addEventListener("change", e => {
