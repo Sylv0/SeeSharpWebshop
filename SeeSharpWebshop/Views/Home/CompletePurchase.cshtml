@@ -1,0 +1,28 @@
+﻿@using System.Linq;
+
+@model List<SeeSharpWebshop.Project.Core.Models.CartModel>
+@{
+    ViewData["Title"] = "Complete Purchase";
+}
+
+<h2>CompletePurchase</h2>
+@Model.Select(item => item.Price * item.Amount).Sum()
+<form method="post">
+    <div class="form-group">
+        <label for="input_name">Name</label>
+        <input name="name" type="text" class="form-control" id="input_name" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="input_address">Address</label>
+        <input name="address" type="text" class="form-control" id="input_address" placeholder="Address">
+    </div>
+    <div class="form-group">
+        <label for="input_name">Zipcode</label>
+        <input name="zipcode" type="text" class="form-control" id="input_zipcode" placeholder="Zipcode">
+    </div>
+    <div class="form-group">
+        <label for="input_name">City</label>
+        <input name="city" type="text" class="form-control" id="input_city" placeholder="City">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
