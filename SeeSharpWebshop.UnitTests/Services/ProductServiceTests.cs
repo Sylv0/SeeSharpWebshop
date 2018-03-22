@@ -10,7 +10,7 @@ using SeeSharpWebshop.Project.Core.Models;
 
 namespace SeeSharpWebshop.UnitTest.Services
 {
-    class ProductServiceTest
+    class ProductServiceTests
     {
         private ProductService productService;
         private IProductRepository productRepository;
@@ -40,16 +40,33 @@ namespace SeeSharpWebshop.UnitTest.Services
             Assert.That(result, Is.EqualTo(expectedProducts));
         }
 
-        [Test]
-        public void Get_GivenId_ReturnsExpectedProduct()
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void Get_GivenIdLessThanOne_DoesNotCallRepository_ReturnsNull(int id)
         {
             // Arrange
-            var id = 1;
-            var expectedProduct = new ProductModel { Id = 1, Name = "Kebab", Description = "Mycke' bra!", Price = 9.99f };
-            A.CallTo(() => this.productRepository.Get(id)).Returns(expectedProduct);
+            ProductModel expecterResult = null;
+
+            A.CallTo(() => this.productRepository.Get(id)).Returns(expecterResult);
 
             // Act
-            var result = this.productService.Get(id);
+            var result = productService.Get(id);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expecterResult));
+            A.CallTo(() => this.productRepository.Get(A<int>.Ignored)).MustNotHaveHappened();
+        }
+
+        [Test]
+        public void Get_GivenValidId_ReturnsExpectedProduct()
+        {
+            // Arrange
+            const int Id = 1;
+            var expectedProduct = new ProductModel { Id = Id };
+            A.CallTo(() => this.productRepository.Get(Id)).Returns(expectedProduct);
+
+            // Act
+            var result = this.productService.Get(Id);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedProduct));
