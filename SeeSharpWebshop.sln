@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpWebshop", "SeeSharpWebshop\SeeSharpWebshop.csproj", "{89C1940A-D622-4D64-B118-32EA21B32CB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpWebshop.Project.Core", "SeeSharpWebshop.Project.Core\SeeSharpWebshop.Project.Core.csproj", "{A1C2B711-E3D8-4A80-B65E-2886A4BF7867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpWebshop.Project.Core", "SeeSharpWebshop.Project.Core\SeeSharpWebshop.Project.Core.csproj", "{A1C2B711-E3D8-4A80-B65E-2886A4BF7867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpWebshop.UnitTest", "SeeSharpWebshop.UnitTests\SeeSharpWebshop.UnitTest.csproj", "{B458DF4B-9F44-44BA-9940-9273085B3034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpWebshop.UnitTests", "SeeSharpWebshop.UnitTests\SeeSharpWebshop.UnitTests.csproj", "{B458DF4B-9F44-44BA-9940-9273085B3034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
