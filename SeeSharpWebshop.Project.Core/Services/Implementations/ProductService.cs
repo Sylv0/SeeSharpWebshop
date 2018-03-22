@@ -23,6 +23,10 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
 
         public ProductModel Get(int id)
         {
+            if (id < 1)
+            {
+                return null;
+            }
             return productRepository.Get(id);
         }
     }
