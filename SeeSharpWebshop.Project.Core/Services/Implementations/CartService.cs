@@ -3,6 +3,7 @@ using SeeSharpWebshop.Project.Core.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace SeeSharpWebshop.Project.Core.Services.Implementations
 {
@@ -18,6 +19,11 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
         public List<CartModel> Get(string guid)
         {
             return cartRepository.Get(guid);
+        }
+
+        public int GetSize(string guid)
+        {
+            return cartRepository.Get(guid).Select(item => item.Amount).Sum();
         }
 
         public void Clear(string guid)
