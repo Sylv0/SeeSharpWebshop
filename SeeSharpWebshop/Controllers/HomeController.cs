@@ -16,8 +16,6 @@ namespace SeeSharpWebshop.Controllers
 {
     public class HomeController : Controller
     {
-        public static Dictionary<ProductModel, int> cart = new Dictionary<ProductModel, int>();
-
         public readonly string connectionString;
 
         List<ProductModel> products = new List<ProductModel>();
@@ -71,18 +69,12 @@ namespace SeeSharpWebshop.Controllers
                             new { guid = Request.Cookies["guid"], prodid = id, amount = 1 });
                 }
             }
-            List<ProductModel> product = products.Where(i => i.Id == id).ToList();
-            if (product.Any())
-            {
-                cart.Add(product[0], 1);
-            }
             return RedirectToAction("Index");
             //return View(id);
         }
 
         public IActionResult ClearCart()
         {
-            cart = new Dictionary<ProductModel, int>();
             cartService.Clear(Request.Cookies["guid"]);
             return RedirectToAction("Cart");
         }
@@ -90,6 +82,18 @@ namespace SeeSharpWebshop.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult CompletePurchase()
+        {
+            return View(cartService.Get(Request.Cookies["guid"]));
+        }
+
+        [HttpPost]
+        public IActionResult CompletePurchase(ReceiptModel model)
+        {
+            return View("Receipt", model);
         }
     }
 }
