@@ -1,0 +1,26 @@
+﻿@model SeeSharpWebshop.Project.Core.Models.ReceiptModel
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<h2>Receipt</h2>
+<p>Thanks for your order. Please check if the details below are correct</p>
+
+<table class="table">
+    <tr>
+        <td>Name:</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td>Zipcode:</td>
+        <td>@Model.Zipcode</td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td>@Model.City</td>
+    </tr>
+</table>
