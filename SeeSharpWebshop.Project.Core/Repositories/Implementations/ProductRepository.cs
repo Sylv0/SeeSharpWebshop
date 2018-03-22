@@ -8,17 +8,13 @@ using System.Text;
 
 namespace SeeSharpWebshop.Project.Core.Repositories.Implementations
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly string connectionString;
 
         public ProductRepository(string connectionString)
         {
             this.connectionString = connectionString;
-        }
-
-        public ProductRepository()
-        {
         }
 
         public List<ProductModel> GetAll()
