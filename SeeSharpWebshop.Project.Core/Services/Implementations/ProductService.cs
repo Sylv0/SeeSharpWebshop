@@ -1,4 +1,5 @@
 ﻿using SeeSharpWebshop.Project.Core.Models;
+using SeeSharpWebshop.Project.Core.Repositories;
 using SeeSharpWebshop.Project.Core.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
 {
     public class ProductService
     {
-        private readonly ProductRepository productRepository;
+        private readonly IProductRepository productRepository;
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
         }
