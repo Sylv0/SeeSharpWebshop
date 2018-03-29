@@ -12,6 +12,13 @@ using System.Net;
 
 namespace SeeSharpWebshop.API.Controllers
 {
+    public class UpdateModel
+    {
+        public string guid { get; set; }
+        public int Id { get; set; }
+        public int Amount { get; set; }
+    }
+
     [Route("api/[controller]")]
     public class CartController : Controller
     {
@@ -33,18 +40,26 @@ namespace SeeSharpWebshop.API.Controllers
 
         // GET api/values/5
         [HttpGet("{guid}")]
-        public IEnumerable<CartModel> Get(string guid)
+        public string Get(string guid)
         {
-            List<CartModel> list = new List<CartModel>();
-            
-            return cartService.Get(guid);
+            return cartService.GetSize(guid).ToString();
         }
 
         // POST api/values
         [HttpPost("{value}")]
-        public string Post([FromBody]ProductModel value)
+        public string Post([FromBody]dynamic value)
         {
-            return $"{value.Name}: {value.Price}\n{value.Description} | id:{value.Id}";
+            return $"{value.Name}: {value.Price}\n{value.Description} | id:{value.Id}\n{value.something}";
+        }
+
+        [HttpPost("{item}")]
+        public HttpStatusCode UpdateCart([FromForm] UpdateModel model)
+        {
+            if (cartService.UpdateCart(model.guid, model.Id, model.Amount)) 
+            {
+                return HttpStatusCode.OK;
+            }
+            return HttpStatusCode.InternalServerError;
         }
 
         // PUT api/values/5
