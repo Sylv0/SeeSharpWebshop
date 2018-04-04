@@ -34,6 +34,8 @@ namespace SeeSharpWebshop.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(Options => Options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseMvc();
         }
     }
