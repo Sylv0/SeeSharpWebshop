@@ -11,7 +11,7 @@
     <div class="form-group">
         <div class="input-group">
             <div class="input-group-addon">@item.Name</div>
-            <input data-product="@item.ProductID" type="number" value="@item.Amount" min="0" class="form-control" />
+            <input data-product="@item.ProductID" type="number" value="@item.Amount" min="0" class="form-control amount" />
             <div class="input-group-addon">@(item.Price * item.Amount) kr</div>
             <br />
         </div>
@@ -23,15 +23,6 @@
 {
     <div class="panel panel-default pull-right"><div class="panel-body">@Model.Select(item => item.Price * item.Amount).Sum() kr</div></div>
 }
-<script>
-    document.querySelectorAll(".amount").forEach(e => {
-        e.addEventListener("change", e => {
-            if (e.target.value < 0 || isNaN(e.target.value)) {
-                e.target.value = 0;
-            }
-        });
-    });
-</script>
 <br />
 <a asp-controller="Home" asp-action="ClearCart" class="text-danger">Clear cart <span class="glyphicon glyphicon-trash"></span></a>
 
