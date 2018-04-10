@@ -28,14 +28,13 @@ window.onload = () => {
                 data.append('guid', cookie);
                 data.append('Id', e.target.dataset['product']);
                 data.append('Amount', e.target.value);
-                let request = new Request("http://localhost:51421/api/cart/UpdateCart", {
+                let request = new Request("http://localhost:51421/api/cart/Update", {
                     method: "POST", body: data
                 });
 
                 fetch(request)
                     .then(a => a.json())
                     .then(b => {
-                        if (b == "200") console.log("IT WORKS!");
                         updateCart(cookie);
                     })
                     .catch(e => console.log(e));
