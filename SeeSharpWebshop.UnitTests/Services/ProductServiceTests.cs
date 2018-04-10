@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SeeSharpWebshop.Project.Core.Repositories;
 using SeeSharpWebshop.Project.Core.Services.Implementations;
