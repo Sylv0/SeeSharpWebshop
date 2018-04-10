@@ -43,7 +43,28 @@ window.onload = () => {
     } catch (e) { console.log(e); }
 
     try {
-        document.querySelectorAll();
-    } catch (e) {}
+        document.querySelectorAll("a.add-to-cart").forEach(e => {
+            e.addEventListener('click', e => {
+                e.preventDefault();
+                let target = e.target;
+                if (target.getAttribute('href') == null) target = e.target.parentNode;
+                let data = new FormData();
+                data.append('guid', cookie);
+                data.append('Id', target.getAttribute('href').match(/\/([0-9]*$)/)[1]);
+                let request = new Request("http://localhost:51421/api/cart/Add", {
+                    method: "POST", body: data
+                });
+
+                fetch(request)
+                    .then(a => a.json())
+                    .then(b => {
+                        updateCart(cookie);
+                    })
+                    .catch(e => console.log(e));
+            });
+        });
+    } catch (e) {
+        console.error(e);
+    }
     updateCart(cookie);
 }
