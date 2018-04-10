@@ -75,6 +75,19 @@ namespace SeeSharpWebshop.Project.Core.Repositories.Implementations
             return true;
         }
 
+        public bool Remove(string guid, int id)
+        {
+            using (var connection = new SqliteConnection(this.connectionString))
+            {
+                try
+                {
+                    var query = "DELETE FROM carts WHERE guid=@guid AND ProductID=@id";
+                    connection.Execute(query, new { guid, id });
+                    return true;
+                } catch (Exception e) { return false;  }
+            }
+        }
+
         public void Clear(string guid)
         {
             using (var connection = new SqliteConnection(this.connectionString))

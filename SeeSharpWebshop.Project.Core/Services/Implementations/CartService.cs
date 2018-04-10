@@ -41,6 +41,11 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
             return cartRepository.Get(guid).Select(item => item.Amount).Sum();
         }
 
+        public bool Remove(string guid, int id)
+        {
+            return cartRepository.Remove(guid, id);
+        }
+
         public void Clear(string guid)
         {
             cartRepository.Clear(guid);
