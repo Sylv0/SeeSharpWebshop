@@ -20,8 +20,22 @@ window.onload = () => {
                 if (e.target.value <= 0) {
                     if (!window.confirm("You're settng the value to less than 1, would you like to romove it?"))
                         e.target.value = 1;
-                    else
-                        return;
+                    else {
+                        let data = new FormData();
+                        data.append('guid', cookie);
+                        data.append('Id', e.target.dataset['product']);
+                        data.append('Amount', e.target.value);
+                        let request = new Request("http://localhost:51421/api/cart/Remove", {
+                            method: "POST", body: data
+                        });
+
+                        fetch(request)
+                            .then(a => a.json())
+                            .then(b => {
+                                updateCart(cookie);
+                            })
+                            .catch(e => console.log(e));
+                    }
                 }
 
                 let data = new FormData();
