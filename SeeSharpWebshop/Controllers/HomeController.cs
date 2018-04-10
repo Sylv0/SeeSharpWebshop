@@ -55,7 +55,20 @@ namespace SeeSharpWebshop.Controllers
         [HttpGet]
         public IActionResult AddItemToCart(int id)
         {
-            cartService.Add(Request.Cookies["guid"], id);
+            using (var connection = new SqliteConnection(this.connectionString))
+            {
+                var testResult = connection.QuerySingleOrDefault("SELECT Amount FROM carts WHERE guid=@guid AND ProductID=@prodid",
+                    new { guid = Request.Cookies["guid"], prodid = id });
+                if (testResult != null)
+                {
+                    connection.Execute("UPDATE carts SET Amount=Amount+1 WHERE guid=@guid AND ProductID=@prodid", new { guid = Request.Cookies["guid"], prodid = id });
+                }
+                else
+                {
+                    connection.Execute("INSERT INTO carts(guid, ProductID, Amount) VALUES(@guid, @prodid, @amount)",
+                            new { guid = Request.Cookies["guid"], prodid = id, amount = 1 });
+                }
+            }
             return RedirectToAction("Index");
             //return View(id);
         }

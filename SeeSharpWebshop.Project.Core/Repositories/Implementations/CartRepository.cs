@@ -35,33 +35,7 @@ namespace SeeSharpWebshop.Project.Core.Repositories.Implementations
             }
         }
 
-        public bool Add(string guid, int id)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection(this.connectionString))
-                {
-                    var testResult = connection.QuerySingleOrDefault("SELECT Amount FROM carts WHERE guid=@guid AND ProductID=@id",
-                        new { guid, id });
-                    if (testResult != null)
-                    {
-                        connection.Execute("UPDATE carts SET Amount=Amount+1 WHERE guid=@guid AND ProductID=@id", new { guid, id });
-                    }
-                    else
-                    {
-                        connection.Execute("INSERT INTO carts(guid, ProductID, Amount) VALUES(@guid, @id, @amount)",
-                                new { guid, id, amount = 1 });
-                    }
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        public bool Update(string guid, int Id, int Amount)
+        public bool UpdateCart(string guid, int Id, int Amount)
         {
             using (var connection = new SqliteConnection(this.connectionString))
             {

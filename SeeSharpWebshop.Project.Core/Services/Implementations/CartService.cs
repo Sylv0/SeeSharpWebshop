@@ -26,14 +26,9 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
             return cartRepository.Get(guid);
         }
 
-        public bool Add(string guid, int id)
+        public bool UpdateCart(string guid, int Id, int Amount)
         {
-            return cartRepository.Add(guid, id);
-        }
-
-        public bool Update(string guid, int Id, int Amount)
-        {
-            return cartRepository.Update(guid, Id, Amount);
+            return cartRepository.UpdateCart(guid, Id, Amount);
         }
 
         public int GetSize(string guid)
