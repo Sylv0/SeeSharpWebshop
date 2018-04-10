@@ -45,17 +45,20 @@ namespace SeeSharpWebshop.API.Controllers
             return cartService.GetSize(guid).ToString();
         }
 
-        // POST api/values
-        [HttpPost("{value}")]
-        public string Post([FromBody]dynamic value)
+        [HttpPost("add")]
+        public HttpStatusCode AddToCart([FromForm] UpdateModel model)
         {
-            return $"{value.Name}: {value.Price}\n{value.Description} | id:{value.Id}\n{value.something}";
+            if (cartService.Add(model.guid, model.Id))
+            {
+                return HttpStatusCode.OK;
+            }
+            return HttpStatusCode.Conflict;
         }
 
-        [HttpPost("{item}")]
+        [HttpPost("update")]
         public HttpStatusCode UpdateCart([FromForm] UpdateModel model)
         {
-            if (cartService.UpdateCart(model.guid, model.Id, model.Amount)) 
+            if (cartService.Update(model.guid, model.Id, model.Amount)) 
             {
                 return HttpStatusCode.OK;
             }
