@@ -65,6 +65,16 @@ namespace SeeSharpWebshop.API.Controllers
             return HttpStatusCode.InternalServerError;
         }
 
+        [HttpPost("remove")]
+        public HttpStatusCode RemoveFromCart([FromForm] UpdateModel model)
+        {
+            if (cartService.Remove(model.guid, model.Id))
+            {
+                return HttpStatusCode.OK;
+            }
+            return HttpStatusCode.InternalServerError;
+        }
+
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
