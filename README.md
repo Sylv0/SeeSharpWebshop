@@ -8,4 +8,4 @@ A simple webshop made in .Net C# MVC and Web API. Using a SQLite database to mak
 3. Run both main and API and hope it works I guess?
 
 ## Testers
-none so far...
+Edvin 
