@@ -12,7 +12,7 @@ window.onload = () => {
         document.querySelector("a.text-danger").addEventListener('click', e => {
             if (!window.confirm("Are you sure?")) e.preventDefault();
         });
-    } catch (e) {}
+    } catch (e) { console.log(e); }
 
     try {
         document.querySelectorAll("input.amount").forEach(e => {
@@ -61,7 +61,7 @@ window.onload = () => {
             e.addEventListener('click', e => {
                 e.preventDefault();
                 let target = e.target;
-                if (target.getAttribute('href') == null) target = e.target.parentNode;
+                if (target.getAttribute('href') === null) target = e.target.parentNode;
                 let data = new FormData();
                 data.append('guid', cookie);
                 data.append('Id', target.getAttribute('href').match(/\/([0-9]*$)/)[1]);
