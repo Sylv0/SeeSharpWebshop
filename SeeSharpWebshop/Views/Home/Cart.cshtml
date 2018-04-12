@@ -22,6 +22,9 @@
 @if (Model.Select(item => item.Price * item.Amount).Sum() > 0)
 {
     <div class="panel panel-default pull-right"><div class="panel-body">@Model.Select(item => item.Price * item.Amount).Sum() kr</div></div>
+
+<br />
+<small><b>*if a change has been made, update to get new price.</b></small>
 }
 <br />
 <a asp-controller="Home" asp-action="ClearCart" class="text-danger">Clear cart <span class="glyphicon glyphicon-trash"></span></a>

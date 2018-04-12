@@ -6,7 +6,26 @@
 }
 
 <h2>CompletePurchase</h2>
-@Model.Select(item => item.Price * item.Amount).Sum()
+<table class="table table-striped table-hover">
+    <tr>
+        <td><b>Product</b></td>
+        <td><b>Amount</b></td>
+        <td><b>Price</b></td>
+    </tr>
+    @foreach (var thing in Model)
+    {
+        <tr>
+            <td>@thing.Name</td>
+            <td>@thing.Amount</td>
+            <td>@thing.Price kr</td>
+        </tr>
+    }
+    <tr class="info">
+        <td><b>Total: </b></td>
+        <td></td>
+        <td>@Model.Select(item => item.Price * item.Amount).Sum() kr</td>
+    </tr>
+</table>
 <form method="post">
     <div class="form-group">
         <label for="input_name">Name</label>
