@@ -6,13 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="MySql.Data" Version="6.10.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Data.Sqlite">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.data.sqlite.core\2.0.0\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
