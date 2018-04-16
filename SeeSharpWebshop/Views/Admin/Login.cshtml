@@ -4,4 +4,16 @@
 }
 
 <h2>Login</h2>
-
+<form asp-action="login" method="post">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="Email" id="email" />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="Password" id="password" />
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+    </div>
+</form>
