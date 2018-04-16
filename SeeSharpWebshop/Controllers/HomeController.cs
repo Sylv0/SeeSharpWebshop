@@ -22,6 +22,7 @@ namespace SeeSharpWebshop.Controllers
 
         private ProductService productService;
         private CartService cartService;
+        private OrderService orderService;
 
         public HomeController(IConfiguration configuration)
         {
@@ -29,6 +30,7 @@ namespace SeeSharpWebshop.Controllers
 
             productService = new ProductService(new ProductRepository(this.connectionString));
             cartService = new CartService(new CartRepository(this.connectionString));
+            orderService = new OrderService(new OrderRepository(this.connectionString));
 
             this.products = productService.GetAll();
         }
@@ -80,6 +82,7 @@ namespace SeeSharpWebshop.Controllers
         [HttpPost]
         public IActionResult CompletePurchase(ReceiptModel model)
         {
+            orderService.Save(model);
             return View("Receipt", model);
         }
     }
