@@ -29,5 +29,10 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
             }
             return productRepository.Get(id);
         }
+
+        public bool Add(string Name, string Description, float Price)
+        {
+            return productRepository.Add(Name, Description, Price);
+        }
     }
 }

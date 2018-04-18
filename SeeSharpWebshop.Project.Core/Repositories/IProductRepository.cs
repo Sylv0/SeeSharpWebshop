@@ -10,5 +10,7 @@ namespace SeeSharpWebshop.Project.Core.Repositories
         List<ProductModel> GetAll();
 
         ProductModel Get(int id);
+
+        bool Add(string Name, string Description, float Price);
     }
 }
