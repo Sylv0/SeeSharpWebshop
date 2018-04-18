@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,13 @@ namespace SeeSharpWebshop.API.Controllers
             var list = new List<ProductModel>();
             list.Add(productService.Get(id));
             return list;
+        }
+
+        [HttpPost("add")]
+        public HttpStatusCode Add(ProductModel model)
+        {
+            if (productService.Add(model.Name, model.Description, model.Price)) return HttpStatusCode.OK;
+            else return HttpStatusCode.InternalServerError;
         }
     }
 }
