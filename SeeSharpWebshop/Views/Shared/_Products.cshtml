@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@foreach (var product in Model)
+{
+    <div class="col-md-4 col-sm-12 product-panel">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@product.Name</h3>
+            </div>
+            <div class="panel-body">
+                @product.Description
+            </div>
+            <div class="panel-footer">@product.Price kr<a href="Home/AddItemToCart/@product.Id" class="pull-right add-to-cart"><span class="glyphicon glyphicon-plus"></span></a></div>
+        </div>
+    </div>
+}

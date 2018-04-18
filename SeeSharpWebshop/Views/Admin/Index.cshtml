@@ -4,4 +4,39 @@
 }
 
 <h2>Admin Page Index</h2>
+<div class="row">
+    @Html.Partial("_Products")
+</div>
 
+<button type="button" class="btn btn-primary btn-lg add-product-btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="add_product_form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add new product</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name" class="control-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="control-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="control-label">Price:</label>
+                        <input type="number" min="0" class="form-control" id="price" name="price" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
