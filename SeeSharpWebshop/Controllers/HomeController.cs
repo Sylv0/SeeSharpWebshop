@@ -82,7 +82,7 @@ namespace SeeSharpWebshop.Controllers
         [HttpPost]
         public IActionResult CompletePurchase(ReceiptModel model)
         {
-            orderService.Save(model);
+            orderService.Save(model, cartService.Get(Request.Cookies["guid"]));
             return View("Receipt", model);
         }
     }

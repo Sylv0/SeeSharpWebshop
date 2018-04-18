@@ -15,9 +15,9 @@ namespace SeeSharpWebshop.Project.Core.Services.Implementations
             this.orderRepository = orderRepository;
         }
 
-        public bool Save(ReceiptModel model)
+        public bool Save(ReceiptModel model, List<CartModel> cart)
         {
-            return orderRepository.Save(model);
+            return orderRepository.Save(model, cart);
         }
     }
 }

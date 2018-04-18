@@ -13,7 +13,6 @@ const AddLatestProductToList = (id, n, d, p) => {
     fetch("http://localhost:51421/api/product").then(res => res.json()).then(data => {
         if (data.length > 0) {
             const post = data[data.length - 1];
-            console.log(post);
             target.innerHTML += `
                 <div class="col-md-4 col-sm-12 product-panel">
                     <div class="panel panel-default">
@@ -23,7 +22,7 @@ const AddLatestProductToList = (id, n, d, p) => {
                         <div class="panel-body">
                             ${post.description}
                         </div>
-                        <div class="panel-footer">${post.id} kr<a href="Home/AddItemToCart/${post.id}" class="pull-right add-to-cart"><span class="glyphicon glyphicon-plus"></span></a></div>
+                        <div class="panel-footer">${post.price} kr<a href="Home/AddItemToCart/${post.id}" class="pull-right add-to-cart"><span class="glyphicon glyphicon-plus"></span></a></div>
                     </div>
                 </div>
             `;
@@ -107,23 +106,34 @@ window.onload = () => {
     try {
         document.forms['add_product_form'].addEventListener('submit', e => {
             e.preventDefault();
-            let data = new FormData();
-            data.append('Name', e.target.name.value);
-            data.append('Description', e.target.description.value);
-            data.append('Price', e.target.price.value);
-            let request = new Request("http://localhost:51421/api/product/Add", {
-                method: "POST", body: data
-            });
+            if (parseFloat(e.target.price.value)) {
+                let data = new FormData();
+                data.append('Name', e.target.name.value);
+                data.append('Description', e.target.description.value);
+                data.append('Price', e.target.price.value);
+                let request = new Request("http://localhost:51421/api/product/Add", {
+                    method: "POST", body: data
+                });
 
-            fetch(request)
-                .then(a => a.json())
-                .then(b => {
-                    if (b === 200) {
-                        $('#myModal').modal('hide');
-                        AddLatestProductToList();
-                    }
-                })
-                .catch(e => console.log(e));
+                fetch(request)
+                    .then(a => a.json())
+                    .then(b => {
+                        if (b === 200) {
+                            AddLatestProductToList();
+                            e.target.price.parentNode.classList.remove("has-error");
+                            e.target.name.value = "";
+                            e.target.description.value = "";
+                            e.target.price.value = "";
+                            e.target.classList.add("bg-success");
+                            setTimeout(function() {
+                                e.target.classList.remove("bg-success");
+                            }, 1000); 
+                        }
+                    })
+                    .catch(e => console.log(e));
+            } else {
+                e.target.price.parentNode.classList.add("has-error");
+            }
         });
     } catch (e) { }
 
