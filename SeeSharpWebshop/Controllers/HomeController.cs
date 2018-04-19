@@ -31,8 +31,6 @@ namespace SeeSharpWebshop.Controllers
             productService = new ProductService(new ProductRepository(this.connectionString));
             cartService = new CartService(new CartRepository(this.connectionString));
             orderService = new OrderService(new OrderRepository(this.connectionString));
-
-            this.products = productService.GetAll();
         }
 
         public IActionResult Index()
@@ -41,7 +39,7 @@ namespace SeeSharpWebshop.Controllers
             {
                 Response.Cookies.Append("guid", Guid.NewGuid().ToString());
             }
-            return View(products);
+            return View(productService.GetAll());
         }
 
         public IActionResult Cart()
@@ -59,7 +57,6 @@ namespace SeeSharpWebshop.Controllers
         {
             cartService.Add(Request.Cookies["guid"], id);
             return RedirectToAction("Index");
-            //return View(id);
         }
 
         public IActionResult ClearCart()
