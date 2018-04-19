@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpWebshop.UnitTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpWebshop.API", "SeeSharpWebshop.API\SeeSharpWebshop.API.csproj", "{9F734A00-2B22-4F0B-A753-DEDCB3668FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeesharpWebshop.IntegrationTests", "SeesharpWebshop.IntegrationTests\SeesharpWebshop.IntegrationTests.csproj", "{EAD5ABAD-41AB-425D-A1B0-F7191C52772E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9F734A00-2B22-4F0B-A753-DEDCB3668FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F734A00-2B22-4F0B-A753-DEDCB3668FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F734A00-2B22-4F0B-A753-DEDCB3668FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD5ABAD-41AB-425D-A1B0-F7191C52772E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD5ABAD-41AB-425D-A1B0-F7191C52772E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD5ABAD-41AB-425D-A1B0-F7191C52772E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD5ABAD-41AB-425D-A1B0-F7191C52772E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
